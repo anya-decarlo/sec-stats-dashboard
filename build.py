@@ -108,8 +108,8 @@ def build_entity(payload: dict) -> dict:
         vals = [p["val"] for p in annual]
         xs = [dec_year(p["end"]) for p in annual]
         yoy = [
-            round((v - pv) / abs(pv) * 100, 2)
-            for v, pv in zip(vals, vals[1:]) if pv
+            round((cur - prev) / abs(prev) * 100, 2)
+            for prev, cur in zip(vals, vals[1:]) if prev
         ]
         yoy_years = [p["end"][:4] for p in annual[1:]]
         lo_f, hi_f = stats.iqr_fences(yoy)
